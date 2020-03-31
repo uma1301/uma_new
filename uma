@@ -1,0 +1,14 @@
+
+int availableResources = 10;
+int decreaseCount(int count){                               int increaseCount(int count){
+    if(availableResources < count)                                     
+        return -1;                                              pthread_mutex_lock(&mutex);                
+    else{                                  
+        pthread_mutex_lock(&mutex);                             -----------------------------
+        ----------------------------                            |availableResources += count;| <---Race Cond.Code location
+-->     |availableResource -= count;|                           ------------------------------
+RCond.  -----------------------------
+        pthread_mutex_unlock(&mutex);                           pthread_mutext_unlock(&mutex);
+    }
+    return 0;                                                       return 0;
+}                                                           }
